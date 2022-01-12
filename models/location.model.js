@@ -12,8 +12,9 @@ const Location = function(location) {
 
 Location.create = (newLocation, result) => {
 
-
-    dbConn.query("INSERT INTO location SET ?", newLocation, (err, res) => {
+  dbConn.getConnection(function(err, conn) {
+    if (err) throw err;
+    conn.query("INSERT INTO location SET ?", newLocation, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -23,6 +24,9 @@ Location.create = (newLocation, result) => {
       console.log("created location: ", { id: res.insertId, ...newLocation });
       result(null, { id: res.insertId, ...newLocation });
     });
+    //release the connection when finished!
+    dbConn.releaseConnection(conn);
+  });
   
   
 };

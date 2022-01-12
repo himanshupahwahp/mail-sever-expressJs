@@ -50,16 +50,16 @@ exports.create = (req, res) => {
         "Email: " + data.email;
 
         //send email
-        // sgMail.send(msg)
-        // .then(() => {
-        //     console.log('Email sent')
-        // })
-        // .catch((error) => {
-        //     console.log(error);
-        //     // res.status(400).send({
-        //     //     message: 'email sending failed'
-        //     //  });
-        // })
+        sgMail.send(msg)
+        .then(() => {
+            console.log('Email sent')
+        })
+        .catch((error) => {
+            console.log(error);
+            // res.status(400).send({
+            //     message: 'email sending failed'
+            //  });
+        })
 
         res.send(data);
     }
